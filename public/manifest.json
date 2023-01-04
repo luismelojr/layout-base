@@ -1,0 +1,8 @@
+{
+    "name": "Melo Dev",
+    "theme_color": "#6366f1",
+    "background_color": "#6366f1",
+    "display": "browser",
+    "scope": "/",
+    "start_url": "/"
+}

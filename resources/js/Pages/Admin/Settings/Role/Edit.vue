@@ -1,0 +1,76 @@
+<script setup>
+import {useForm} from "@inertiajs/inertia-vue3";
+
+const itemsBread = [
+    {
+        name: 'Dashboard',
+        href: route('admin.dashboard'),
+        current: false
+    },
+    {
+        name: 'Grupo de permissões',
+        href: route('admin.settings.roles.index'),
+        current: false
+    },
+    {
+        name: 'Cadastrar',
+        href: route('admin.settings.roles.create'),
+        current: true
+    }
+]
+const actionsTitle = {
+    title: 'Voltar',
+    href: route('admin.settings.roles.index'),
+    isback: true,
+    can: 'read-roles'
+}
+const props = defineProps({
+    role: Object | Array,
+    permissions: Object | Array,
+})
+const form = useForm({
+    name: props.role.name,
+    description: props.role.description,
+    permissions: props.role.permissions?.map(permission => permission.id)
+})
+
+</script>
+<template>
+    <AuthenticatedLayout>
+        <div class="tw-flex tw-items-center tw-justify-between">
+            <h4 class="tw-text-gray-600 tw-text-2xl tw-font-bold">Cadastrar grupo de permissões</h4>
+            <breadcrumb :items="itemsBread"/>
+        </div>
+        <card class="tw-mt-8">
+            <title-card title="Cadastrar grupos" subtitle="Use os campos abaixos para cadastrar grupos." :actions="actionsTitle"/>
+            <form class="tw-mt-4" @submit.prevent="form.put(route('admin.settings.roles.update', {role: role.id}))">
+                <div class="tw-flex tw-gap-4">
+                    <div class="tw-w-full">
+                        <label for="name" class="tw-block tw-text-sm tw-font-medium tw-text-gray-400">Nome</label>
+                        <q-input id="name" class="tw-mt-1" dense outlined v-model="form.name" :error="!!form.errors.name" :error-message="form.errors.name"/>
+                    </div>
+                    <div class="tw-w-full">
+                        <label for="description" class="tw-block tw-text-sm tw-font-medium tw-text-gray-400">Descrição</label>
+                        <q-input id="description" class="tw-mt-1" dense outlined v-model="form.description"/>
+                    </div>
+                </div>
+                <div class="tw-mt-8 tw-grid tw-grid-cols-3 tw-gap-6">
+                    <div v-for="(item, key) in permissions" :key="item.id">
+                        <div class="tw-w-full tw-bg-gray-300 tw-py-2 tw-px-4 tw-capitalize tw-text-[18px] tw-text-gray-700">
+                            {{key}}
+                        </div>
+                        <div class="tw-w-full tw-py-2 tw-capitalize tw-text-md tw-text-gray-700 tw-grid tw-grid-cols-2 tw-gap-2">
+                            <div v-for="permission in item" :key="permission.id" class="tw-flex tw-items-center tw-gap-2 tw-text-[16px]">
+                                <input type="checkbox" :id="permission.id" :value="permission.id" v-model="form.permissions" class="tw-h-4 tw-w-4">
+                                <label :for="permission.id">{{permission.name.replace('-', ' ')}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tw-mt-4 tw-flex tw-justify-end">
+                    <loading-button title="Atualizar" icon="bx-save" type="submit" :loading="form.processing"/>
+                </div>
+            </form>
+        </card>
+    </AuthenticatedLayout>
+</template>
