@@ -8,7 +8,7 @@ const props = defineProps({
 const form = useForm({
     name: props.user.name,
     email: props.user.email,
-    role: props.user.roles[0],
+    role: props.user.roles[0].id,
 })
 
 const itemsBread = [
