@@ -4,6 +4,7 @@ namespace Tests\Feature\Admin\Users;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 use Tests\Traits\AdminUserTrait;
@@ -30,6 +31,23 @@ class UserControllerTest extends TestCase
     {
         $response = $this->actingAs($this->adminUser)->get(route('admin.users.index'));
         $response->assertStatus(200);
+    }
+
+    public function test_edit_status_user()
+    {
+        $permission = Permission::create(['name' => 'status-users']);
+        $this->adminUser->givePermissionTo($permission);
+        $user = User::create([
+            'name' => 'Test User',
+            'email' => 'test_user@gmail.com',
+            'password' => bcrypt('password'),
+        ]);
+        $response = $this->actingAs($this->adminUser)->put(route('admin.users.status', $user->id));
+        $response->assertRedirect(route('admin.users.index'));
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'is_active' => 0,
+        ]);
     }
 
     public function test_can_edit_user()
