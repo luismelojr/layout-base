@@ -41,7 +41,7 @@ class RoleController extends Controller
         ]);
 
         if (!$request->permissions) {
-            return redirect()->back()->toast('Por favor selecione ao menos uma permissão', 'error');
+            return redirect()->route('admin.settings.roles.create')->toast('Por favor selecione ao menos uma permissão', 'error');
         }
 
         $this->roleService->create($request);
@@ -66,17 +66,17 @@ class RoleController extends Controller
         ]);
 
         if (!$request->permissions) {
-            return redirect()->back()->toast('Por favor selecione ao menos uma permissão', 'error');
+            return redirect()->route('admin.settings.roles.edit', $role->id)->toast('Por favor selecione ao menos uma permissão', 'error');
         }
 
         $this->roleService->update($request, $role);
-        return redirect()->back()->toast('Cargo atualizado com sucesso', 'success');
+        return redirect()->route('admin.settings.roles.edit', $role->id)->toast('Cargo atualizado com sucesso', 'success');
     }
 
     public function destroy(Role $role)
     {
         $this->authorize('delete-roles');
         $this->roleService->delete($role);
-        return redirect()->back()->toast('Cargo excluído com sucesso', 'success');
+        return redirect()->route('admin.settings.roles.index')->toast('Cargo excluído com sucesso', 'success');
     }
 }

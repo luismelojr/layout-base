@@ -33,7 +33,7 @@ class UserCreateTest extends TestCase
             'email' => 'test_user@gmail.com',
             'password' => bcrypt('password'),
         ]);
-        $user->assignRole(Role::create(['name' => 'user'])->name);;
+        $user->assignRole(Role::create(['name' => 'user'])->name);
         $response = $this->actingAs($user)->get(route('admin.users.create'));
         $response->assertStatus(403);
     }
