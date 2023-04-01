@@ -7,8 +7,12 @@ const form = useForm({
 });
 
 function submit() {
-    form.post(route('password.reset.send'))
-    form.reset()
+    form.post(route('password.reset.send'), {
+        onFinish: () => {
+            form.email.reset();
+        }
+    })
+
 }
 
 </script>

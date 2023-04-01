@@ -31,9 +31,9 @@ class PasswordResetLinkController extends Controller
             'email' => 'required|email',
         ]);
 
-        if ($this->verifyToken($request->email)) {
-            return back()->toast('Um link para redefinir a senha foi enviado para o seu e-mail.', 'error');
-        }
+//        if ($this->verifyToken($request->email)) {
+//            return back()->toast('Um link para redefinir a senha foi enviado para o seu e-mail.', 'error');
+//        }
         $token = substr(md5($request->email), 0, 255);
         $user = User::where('email', $request->email)->first();
         if ($user) {
@@ -42,7 +42,7 @@ class PasswordResetLinkController extends Controller
             event(new SendMailForgotPasswordEvent($token, $request->email, $user->name));
         }
 
-        return back()->toast('Um link para redefinir a senha foi enviado para o seu e-mail.', 'success');
+        return redirect()->route('password.request')->toast('Um link para redefinir a senha foi enviado para o seu e-mail.', 'success');
     }
 
     /**
