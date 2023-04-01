@@ -46,6 +46,8 @@ export default defineConfig({
         Components({
             dirs: [
                 './resources/js/Components',
+                './resources/js/Components/Inputs',
+                './resources/js/Components/Navigations',
                 './resources/js/Layouts',
                 './resources/js/Assets',
             ],

@@ -1,9 +1,12 @@
 <script setup>
+import TextLabel from "@/Components/Inputs/TextLabel.vue";
+import AnchorLink from "@/Components/Navigations/AnchorLink.vue";
+
 const form = useForm({
     email: '',
 });
 
-function handleSubmit() {
+function submit() {
     form.post(route('password.reset.send'))
     form.reset()
 }
@@ -12,28 +15,27 @@ function handleSubmit() {
 <template>
     <GuestLayout :is-login="false">
         <Head title="Melo Dev - Esqueci minha senha" />
-        <div class="tw-mt-4">
-            <div class="tw-text-center">
-                <h3 class="tw-text-xl tw-text-gray-400 tw-font-medium">Recuperar senha</h3>
-                <p class="tw-text-gray-400 tw-text-[0.8rem]">Entre com seu email<br> para receber as instruções para recuperar senha</p>
-            </div>
+        <div>
+            <h1 class="tw-text-4xl tw-font-bold">Recupere sua senha</h1>
+            <p class="tw-mt-[1rem] tw-text-[1rem] tw-text-gray-600">Recupere o acesso à sua conta em apenas alguns passos simples.</p>
+        </div>
 
-            <form @submit.prevent="handleSubmit">
-                <div>
-                    <label for="email" class="tw-block tw-text-sm tw-font-medium tw-text-gray-400">Email</label>
-                    <q-input v-model="form.email" id="email" class="tw-mt-1" dense outlined :error="!!form.errors.email" :error-message="form.errors.email"/>
-                </div>
-                <div class="tw-w-full tw-mt-4">
-                    <q-btn
-                        class="full-width"
-                        style="background: #6366F1; color: white"
-                        :loading="form.processing"
-                        label="Enviar"
-                        no-caps
-                        type="submit"
-                    />
-                </div>
-            </form>
+        <form @submit.prevent="submit" class="tw-mt-[2.5rem]">
+            <div>
+                <TextLabel value="E-mail"/>
+                <q-input v-model="form.email" id="email" class="tw-mt-2 hover:border-primary" dense outlined :error="!!form.errors.email" :error-message="form.errors.email"/>
+            </div>
+            <q-btn
+                class="full-width tw-mt-4"
+                type="submit"
+                color="primary"
+                :loading="form.processing"
+                label="Enviar"
+                no-caps
+            />
+        </form>
+        <div class="tw-mt-8">
+            <p class="tw-text-gray-800 tw-text-[0.875rem]">Já lembrou sua senha? <AnchorLink :href="route('login')">Login</AnchorLink></p>
         </div>
     </GuestLayout>
 </template>
