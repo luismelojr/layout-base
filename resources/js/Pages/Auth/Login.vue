@@ -49,7 +49,7 @@ const isPwd = ref(true);
                 :loading="form.processing"
                 label="Entrar"
                 no-caps
-                @click="form.post(route('login'))"
+                type="submit"
             />
         </form>
     </GuestLayout>

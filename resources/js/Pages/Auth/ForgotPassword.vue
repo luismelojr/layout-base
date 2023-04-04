@@ -9,15 +9,14 @@ const form = useForm({
 function submit() {
     form.post(route('password.reset.send'), {
         onFinish: () => {
-            form.email.reset();
+            form.email = '';
         }
     })
-
 }
 
 </script>
 <template>
-    <GuestLayout :is-login="false">
+    <GuestLayout>
         <Head title="Melo Dev - Esqueci minha senha" />
         <div>
             <h1 class="tw-text-4xl tw-font-bold">Recupere sua senha</h1>

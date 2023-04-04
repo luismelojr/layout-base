@@ -1,15 +1,16 @@
 <script setup>
 import { Modal } from 'momentum-modal'
 import useUser from "@/Data/Hooks/useUser";
+import SimpleLogo from "@/Components/SimpleLogo.vue";
 const user = useUser()
 </script>
 
 <template>
     <div class="tw-bg-light tw-min-h-screen">
-        <header class="tw-bg-dark tw-w-full tw-h-[70px] tw-relative tw-flex tw-items-center">
+        <header class="tw-bg-gray-900 tw-w-full tw-h-[70px] tw-relative tw-flex tw-items-center">
             <div class="container tw-flex tw-justify-between tw-items-center">
                 <Link :href="route('admin.dashboard')">
-                    <ApplicationLogo class="tw-h-7 tw-w-7 tw-text-white"/>
+                    <SimpleLogo class="tw-h-7 tw-w-7 tw-text-white"/>
                 </Link>
                 <div>
                     <button class="tw-absolute tw-top-0 tw-right-[10px] tw-h-full tw-px-4 tw-flex tw-items-center md:tw-right-[24px]">

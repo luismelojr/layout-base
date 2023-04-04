@@ -57,12 +57,12 @@ function toggleMenu() {
         <ul class="tw-w-full tw-items-center tw-gap-8 -tw-ml-1 tw-hidden md:tw-flex">
             <Popover class="tw-relative" v-for="link in links" :key="link.name" v-can="link.can" :class="{'tw-flex tw-items-center tw-gap-3': !!link.children}">
                 <PopoverButton>
-                    <div v-if="!!link.children" class="tw-text-[15px] tw-flex tw-items-center tw-gap-2 tw-cursor-pointer" :class="{'tw-text-indigo-500': isActive(link.routeActive), 'tw-text-gray-400': !isActive(link.routeActive)}">
+                    <div v-if="!!link.children" class="tw-text-[15px] tw-flex tw-items-center tw-gap-2 tw-cursor-pointer" :class="{'tw-text-primary': isActive(link.routeActive), 'tw-text-gray-400': !isActive(link.routeActive)}">
                         <i :class="link.icon" class="tw-text-[15px]"></i>
                         <span>{{ link.name }}</span>
                         <i v-if="!!link.children" class='bx bx-chevron-down tw-text-[16px] tw-text-inherit'></i>
                     </div>
-                    <Link v-else :href="link.href" class="tw-text-[15px] tw-flex tw-items-center tw-gap-2" :class="{'tw-text-indigo-500': isActive(link.routeActive), 'tw-text-gray-400': !isActive(link.routeActive)}">
+                    <Link v-else :href="link.href" class="tw-text-[15px] tw-flex tw-items-center tw-gap-2" :class="{'tw-text-primary': isActive(link.routeActive), 'tw-text-gray-400': !isActive(link.routeActive)}">
                         <i :class="link.icon" class="tw-text-[15px]"></i>
                         <span>{{ link.name }}</span>
                         <i v-if="!!link.children" class='bx bx-chevron-down tw-text-[16px] tw-text-inherit'></i>
